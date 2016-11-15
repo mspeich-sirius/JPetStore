@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JPetStore" default="build" basedir="."> 
+  <target name="build" depends="build_war">
+  </target>
+	
+	<target name="build_war">
+		<war destfile="JPetStore.war" basedir=".">
+			<exclude name="*.war"/>
+			<exclude name=".*"/>
+			<exclude name="build.xml"/>
+		</war>
+	</target>
+	
+</project>
