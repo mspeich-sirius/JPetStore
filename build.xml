@@ -10,5 +10,5 @@
 			<exclude name="build.xml"/>
 		</war>
 	</target>
-	
+
 </project>
