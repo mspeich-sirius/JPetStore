@@ -1,13 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="JPetStore" default="build" basedir="."> 
-  <target name="build" depends="build_war">
-  </target>
-	
+<project name="JPetStore" default="build" basedir=".">
+	<property name="lib.dir" value="WEB-INF/lib" />
+	<property name="test.lib.dir" value="test/lib" />
+	<property name="src.tests" value="test" />
+	<property name="reports.tests" value="test/reports" />
+	<property name="build" value="bin" />
+
+	<path id="build.classpath">
+		<pathelement path="bin"/>
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<path id="test.classpath">
+		<path refid="build.classpath"/>
+		<fileset dir="${test.lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="all" depends="build,test,build_war">
+	</target>
+
+	<target name="build">
+		<javac srcdir="${src.tests}" destdir="${build}" classpathref="build.classpath" debug="on" source="1.4" />
+	</target>
+
+	<target name="test">
+		<mkdir dir="test/reports"/>
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath refid="test.classpath"/>
+			<formatter type="xml" />
+
+			<batchtest fork="yes" todir="${reports.tests}">
+				<fileset dir="${src.tests}">
+					<include name="**/*Test*.java" />
+					<exclude name="**/AllTests.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
 	<target name="build_war">
 		<war destfile="JPetStore.war" basedir=".">
-			<exclude name="*.war"/>
-			<exclude name=".*"/>
-			<exclude name="build.xml"/>
+			<exclude name="*.war" />
+			<exclude name=".*" />
+			<exclude name="build.xml" />
 		</war>
 	</target>
 
