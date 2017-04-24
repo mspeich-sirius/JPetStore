@@ -19,6 +19,6 @@ node {
       archive '*.war'
    }
    stage ('Deploy') {
-       sh "curl --upload-file JPetStore.war 'http://tomcatmanager:tomcatmanager@${BRANCH_ID}:8080/manager/text/deploy?path=/JPetStore&update=true'"
+       sh "curl --upload-file JPetStore.war 'http://tomcatmanager:tomcatmanager@${BRANCH_NAME}:8080/manager/text/deploy?path=/JPetStore&update=true'"
    }
 }
