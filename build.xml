@@ -6,14 +6,11 @@
 	<property name="reports.tests" value="test/reports" />
 	<property name="build" value="bin" />
 
-	<path id="build.classpath">
+	<path id="classpath">
 		<pathelement path="bin"/>
 		<fileset dir="${lib.dir}">
 			<include name="**/*.jar" />
 		</fileset>
-	</path>
-	<path id="test.classpath">
-		<path refid="build.classpath"/>
 		<fileset dir="${test.lib.dir}">
 			<include name="**/*.jar" />
 		</fileset>
@@ -24,13 +21,13 @@
 
 	<target name="build">
 		<mkdir dir="bin"/>
-		<javac srcdir="${src.tests}" destdir="${build}" classpathref="build.classpath" debug="on" source="1.8" />
+		<javac srcdir="${src.tests}" destdir="${build}" classpathref="classpath" debug="on" source="1.8" includeantruntime="false" />
 	</target>
 
 	<target name="test">
 		<mkdir dir="test/reports"/>
 		<junit printsummary="yes" haltonfailure="yes">
-			<classpath refid="test.classpath"/>
+			<classpath refid="classpath"/>
 			<formatter type="xml" />
 
 			<batchtest fork="yes" todir="${reports.tests}">
