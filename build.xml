@@ -23,6 +23,7 @@
 	</target>
 
 	<target name="build">
+		<mkdir dir="bin"/>
 		<javac srcdir="${src.tests}" destdir="${build}" classpathref="build.classpath" debug="on" source="1.4" />
 	</target>
 
