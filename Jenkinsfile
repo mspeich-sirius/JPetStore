@@ -20,7 +20,7 @@ node {
    }
    stage ('Deploy') {
        def branch = "${BRANCH_NAME}"
-       if (branch.startsWith("release")) branch = "qa" 
+       if (branch.startsWith("release")) branch = "test" 
        sh "curl --upload-file JPetStore.war 'http://tomcatmanager:tomcatmanager@${branch}:8080/manager/text/deploy?path=/JPetStore&update=true'"
    }
 }
