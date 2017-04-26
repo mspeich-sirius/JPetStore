@@ -13,14 +13,22 @@ node {
       } else {
          bat(/"${antHome}\bin\ant" all/)
       }
+      docker.withTool("Docker") {
+          withDockerServer(uri: "tcp://192.168.179.147:2375") { 
+            docker.build "jpetstore-$BRANCH_NAME:$BUILD_NUMBER"
+          }
+      }
    }
    stage('Results') {
       junit 'test/reports/TEST-*.xml'
       archive '*.war'
    }
-   stage ('Deploy') {
-       def branch = "${BRANCH_NAME}"
-       if (branch.startsWith("release")) branch = "test" 
-       sh "curl --upload-file JPetStore.war 'http://tomcatmanager:tomcatmanager@${branch}:8080/manager/text/deploy?path=/JPetStore&update=true'"
+   stage('Deploy') {
+      docker.withTool("Docker") {
+          withDockerServer(uri: "tcp://192.168.179.147:2375") { 
+            def image = docker.image "jpetstore-$BRANCH_NAME:$BUILD_NUMBER"
+            image.run "-p80$BUILD_NUMBER:8080 --name mark-$BUILD_NUMBER"
+          }
+      }
    }
 }
