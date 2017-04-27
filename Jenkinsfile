@@ -1,6 +1,6 @@
 node {
    def antHome
-   def branch = "$BRANCH_NAME"
+   String branch = "$BRANCH_NAME"
    branch = branch.replaceAll "/" "-"
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
