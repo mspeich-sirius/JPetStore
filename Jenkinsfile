@@ -2,7 +2,7 @@ node {
    def antHome
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
-      git branch: 'develop', url: 'http://mspeich@gitlab:80/mspeich/JPetStore.git'
+      git branch: '$BRANCH_NAME', url: 'http://mspeich@gitlab:80/mspeich/JPetStore.git'
       // Get the Ant tool.
       antHome = tool 'ant'
    }
