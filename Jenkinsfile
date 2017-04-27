@@ -1,7 +1,7 @@
 node {
    def antHome
    String branch = "$BRANCH_NAME"
-   branch = branch.replaceAll "/" "-"
+   branch = branch.replace "/" "-"
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
       git branch: '$BRANCH_NAME', url: 'http://mspeich@gitlab:80/mspeich/JPetStore.git'
