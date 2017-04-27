@@ -27,7 +27,7 @@ node {
       docker.withTool("Docker") {
           withDockerServer(uri: "tcp://192.168.179.147:2375") { 
             def image = docker.image "jpetstore-$BRANCH_NAME:$BUILD_NUMBER"
-            image.run "-p80$BUILD_NUMBER:8080 --name mark-$BUILD_NUMBER"
+            image.run "-p80$BUILD_NUMBER:8080 --name mark-$BRANCH_NAME-$BUILD_NUMBER"
           }
       }
    }
