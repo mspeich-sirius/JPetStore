@@ -24,6 +24,15 @@
 		<javac srcdir="${src.tests}" destdir="${build}" classpathref="classpath" debug="on" source="1.8" includeantruntime="false" />
 	</target>
 
+	<target name="build_war">
+		<echo message="Branch is ${branch}"/>
+		<war destfile="JPetStore.war" basedir=".">
+			<exclude name="*.war" />
+			<exclude name=".*" />
+			<exclude name="build.xml" />
+		</war>
+	</target>
+
 	<target name="test">
 		<mkdir dir="test/reports"/>
 		<junit printsummary="yes" haltonfailure="yes">
@@ -37,14 +46,6 @@
 				</fileset>
 			</batchtest>
 		</junit>
-	</target>
-
-	<target name="build_war">
-		<war destfile="JPetStore.war" basedir=".">
-			<exclude name="*.war" />
-			<exclude name=".*" />
-			<exclude name="build.xml" />
-		</war>
 	</target>
 
 </project>
