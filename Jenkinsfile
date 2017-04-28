@@ -1,8 +1,10 @@
 node {
-   def projectName = "jpetstore"
    def antHome
    String branch = "$BRANCH_NAME"
    branch = branch.replaceAll("/","-")
+   def imageName = "jpetstore"
+   def tag = "$branch-$BUILD_NUMBER"
+   
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
       git branch: '$BRANCH_NAME', url: 'http://mspeich@gitlab:80/mspeich/JPetStore.git'
@@ -18,7 +20,7 @@ node {
       }
       docker.withTool("Docker") {
           withDockerServer(uri: "tcp://192.168.179.147:2375") { 
-            docker.build "$projectName-$branch:$BUILD_NUMBER"
+            docker.build "$imageName:$tag"
           }
       }
    }
@@ -29,8 +31,8 @@ node {
    stage('Deploy') {
       docker.withTool("Docker") {
           withDockerServer(uri: "tcp://192.168.179.147:2375") { 
-            def image = docker.image "jpetstore-$branch:$BUILD_NUMBER"
-            image.run "-p80$BUILD_NUMBER:8080 --name $projectName-$branch-$BUILD_NUMBER"
+            def image = docker.image "$imageName:$tag"
+            image.run "-p80$BUILD_NUMBER:8080 --name $imageName-$tag"
           }
       }
    }
