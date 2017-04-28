@@ -12,7 +12,7 @@ node {
    stage('Build') {
       // Run the ant build
       if (isUnix()) {
-         sh "'${antHome}/bin/ant' all"
+         sh "'${antHome}/bin/ant' -Dbranch=$BRANCH_NAME -DbuildNumber=$BUILD_NUMBER all"
       } else {
          bat(/"${antHome}\bin\ant" all/)
       }
