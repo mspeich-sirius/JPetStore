@@ -3,7 +3,7 @@ node {
    String branch = "$BRANCH_NAME"
    branch = branch.replaceAll("/","-")
    def imageName = "jpetstore"
-   def tag = "$branch-$BUILD_NUMBER"
+   def tag = "$branch.$BUILD_NUMBER"
    
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
