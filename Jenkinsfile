@@ -18,18 +18,19 @@ node {
       } else {
          bat(/"${antHome}\bin\ant" all/)
       }
+      junit 'test/reports/TEST-*.xml'
+      archive '*.war'
       docker.withTool("Docker") {
           withDockerServer(uri: "tcp://192.168.179.147:2375") { 
             docker.build "$imageName:$tag"
           }
       }
-      junit 'test/reports/TEST-*.xml'
-      archive '*.war'
    }
    stage('Publish') {
       docker.withTool("Docker") {
-          withDockerServer(uri: "tcp://192.168.179.147:5000") { 
-            docker.push "$imageName:$tag"
+          withRegistry(uri: "tcp://192.168.179.147:5000") {
+            def image = docker.image "$imageName:$tag"
+            image.push
           }
       }
    }
