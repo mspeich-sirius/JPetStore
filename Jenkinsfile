@@ -33,7 +33,7 @@ node {
               sh "docker tag $imageName:$tag $registry/$imageName:$tag"
               def image = docker.image "$registry/$imageName:$tag"
               echo "here1"
-	          image.push "http://192.168.179.147:5000/jpetstore:$tag"
+	          sh "docker push $registry/$imageName:$tag"
           }
       }
    }
