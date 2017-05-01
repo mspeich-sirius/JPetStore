@@ -29,8 +29,8 @@ node {
    stage('Publish') {
       docker.withTool("Docker") {
           withDockerServer(uri: "tcp://192.168.179.147:2375") {
-              def image = docker.image "$imageName:$tag"
               String registry = "http://192.168.179.147:5000"
+              def image = docker.image "$registry:$imageName:$tag"
               image.tag "${registry}/jpetstore:$tag"
               echo "here1"
 	          image.push "http://192.168.179.147:5000/jpetstore:$tag"
