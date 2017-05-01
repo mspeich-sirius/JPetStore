@@ -28,7 +28,7 @@ node {
    }
    stage('Publish') {
       docker.withTool("Docker") {
-          withRegistry(uri: "tcp://192.168.179.147:5000") {
+          withDockerRegistry(uri: "tcp://192.168.179.147:5000") {
             def image = docker.image "$imageName:$tag"
             image.push
           }
