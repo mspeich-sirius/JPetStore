@@ -30,10 +30,9 @@ node {
       docker.withTool("Docker") {
           withDockerServer(uri: "tcp://192.168.179.147:2375") {
               def image = docker.image "$imageName:$tag"
-	          withDockerRegistry(uri: "https://192.168.179.147:5000") {
-	            echo "here1"
-	            image.push()
-	          }
+              image.tag "$imageName:$tag" "http://192.168.179.147:5000/jpetstore:$tag"
+              echo "here1"
+	          image.push "http://192.168.179.147:5000/jpetstore:$tag"
           }
       }
    }
