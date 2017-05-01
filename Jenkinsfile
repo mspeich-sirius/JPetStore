@@ -22,6 +22,8 @@ node {
           withDockerServer(uri: "tcp://192.168.179.147:2375") { 
             docker.build "$imageName:$tag"
           }
+      }
+      docker.withTool("Docker") {
           withDockerServer(uri: "tcp://192.168.179.147:5000") { 
             docker.push "$imageName:$tag"
           }
