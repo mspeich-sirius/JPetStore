@@ -31,7 +31,7 @@ node {
           withDockerRegistry(uri: "tcp://192.168.179.147:5000") {
             def image = docker.image "$imageName:$tag"
             echo "here1"
-            image.push "$tag"
+            image.push()
           }
       }
    }
