@@ -29,7 +29,7 @@ node {
    stage('Publish') {
       docker.withTool("Docker") {
           withDockerServer(uri: "tcp://192.168.179.147:2375") {
-              String registry = "http://192.168.179.147:5000"
+              String registry = "192.168.179.147:5000"
               sh "docker tag $imageName:$tag $registry/$imageName:$tag"
               def image = docker.image "$registry/$imageName:$tag"
               echo "here1"
