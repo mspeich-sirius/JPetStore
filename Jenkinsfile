@@ -23,15 +23,15 @@ node {
             docker.build "$imageName:$tag"
           }
       }
+      junit 'test/reports/TEST-*.xml'
+      archive '*.war'
+   }
+   stage('Publish') {
       docker.withTool("Docker") {
           withDockerServer(uri: "tcp://192.168.179.147:5000") { 
             docker.push "$imageName:$tag"
           }
       }
-   }
-   stage('Results') {
-      junit 'test/reports/TEST-*.xml'
-      archive '*.war'
    }
    stage('Deploy') {
       docker.withTool("Docker") {
