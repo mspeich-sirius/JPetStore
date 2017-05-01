@@ -31,7 +31,7 @@ node {
           withDockerServer(uri: "tcp://192.168.179.147:2375") {
               String registry = "http://192.168.179.147:5000"
               sh "docker tag $imageName:$tag $registry/$imageName:$tag"
-              Image image = docker.image "$registry/$imageName:$tag"
+              def image = docker.image "$registry/$imageName:$tag"
               echo "here1"
 	          image.push "http://192.168.179.147:5000/jpetstore:$tag"
           }
