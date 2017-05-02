@@ -1,6 +1,6 @@
 node {
    // Get the Ant tool.
-   def antHome = antHome = tool 'ant'
+   def antHome = tool 'ant'
    String branch = "$BRANCH_NAME"
    branch = branch.replaceAll("/","-")
    def imageName = "jpetstore"
