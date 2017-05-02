@@ -25,7 +25,6 @@
 	</target>
 
 	<target name="build_war">
-		<echo message="Branch is ${branch}"/>
 		<war destfile="JPetStore.war" basedir=".">
 			<exclude name="*.war" />
 			<exclude name=".*" />
