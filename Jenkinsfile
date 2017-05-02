@@ -1,15 +1,17 @@
 node {
-   def antHome
+   // Get the Ant tool.
+   def antHome = antHome = tool 'ant'
    String branch = "$BRANCH_NAME"
    branch = branch.replaceAll("/","-")
    def imageName = "jpetstore"
    def tag = "$branch.$BUILD_NUMBER"
-   
+   String registry = "192.168.179.147:5000"
+
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
       git branch: '$BRANCH_NAME', url: 'http://mspeich@gitlab:80/mspeich/JPetStore.git'
-      // Get the Ant tool.
-      antHome = tool 'ant'
+
+      
    }
    stage('Build') {
       // Run the ant build
@@ -29,10 +31,8 @@ node {
    stage('Publish') {
       docker.withTool("Docker") {
           withDockerServer(uri: "tcp://192.168.179.147:2375") {
-              String registry = "192.168.179.147:5000"
               sh "docker tag $imageName:$tag $registry/$imageName:$tag"
               def image = docker.image "$registry/$imageName:$tag"
-              echo "here1"
 	          sh "docker push $registry/$imageName:$tag"
           }
       }
